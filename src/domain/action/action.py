@@ -7,10 +7,10 @@ NEW_ACCESS_TYPE = 'ACTION_APP_ACCESS'
 
 class Action:
     
-    def __init__(self, type: str, metadata = {}, ts = datetime.now()):
+    def __init__(self, type: str, metadata = {}, ts = None):
         self.__type = type
         self.__metadata = metadata
-        self.__timestamp = ts
+        self.__timestamp = datetime.now() if ts is None else ts
 
     def metadata(self):
         return self.__metadata
