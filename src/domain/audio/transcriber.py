@@ -26,8 +26,7 @@ class GoogleSpeechAPITranscriber(AudioTranscriber):
         audio.prepare_transcriber(self)
 
         config = speech.RecognitionConfig(
-            sample_rate_hertz=self._config["sample_rate_hertz"],
-            language_code=self._config["language_code"],
+            **self._config,
             enable_word_time_offsets=True 
         )
 
