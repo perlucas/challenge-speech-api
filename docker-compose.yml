@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  api:
+    image: speech-api/python
+    build:
+      context: .
+      dockerfile: ./docker/api.Dockerfile
+    env_file:
+      - .env
+    command: "python3 app.py"
+    volumes:
+      - ./src:/usr/src/app
+    ports:
+    - "85:5000"
+    tty: true
+    stdin_open: true
+
+  db:
+    image: mongo
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    volumes:
+      - ./mongo/init/:/docker-entrypoint-initdb.d
